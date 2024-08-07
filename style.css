@@ -1,0 +1,142 @@
+body[data-theme="light"] {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --card-bg: #f8f9fa;
+    --card-text-color: #000000;
+}
+
+body[data-theme="dark"] {
+    --background-color: #090c12;
+    --text-color: #ffffff;
+    --card-bg:  #14171e;
+    --card-text-color: #ffffff;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card {
+    background-color: var(--card-bg);
+    color: var(--card-text-color);
+}
+
+
+.card img {
+    transition: transform 0.3s ease;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--card-text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.list-group{
+    overflow-x: scroll;
+    height: 100vh;
+    position: fixed;
+    width: 300px;
+    font-weight: 500;
+}
+/* toogle start */
+#dark-mode-toggle{
+    border: none;
+    font-size: 30px;
+    padding: 0px;
+    background:none;
+    outline: none;
+}
+
+/* toogle end */
+.list-group::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .list-group::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .list-group::-webkit-scrollbar-thumb {
+    background: #b4b2b1; 
+  }
+  
+  /* Handle on hover */
+  .list-group::-webkit-scrollbar-thumb:hover {
+    background: #555555; 
+  }
+#image-list .list-group-item {
+    background-color: var(--card-bg);
+    color: var(--card-text-color);
+}
+
+#image-list .list-group-item:hover {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+#image-list .list-group-item:focus{
+    background-image: linear-gradient(to bottom right, rgb(255, 128, 43), rgb(165, 88, 10));
+    color: white;
+}
+
+.container-fluid{
+    margin-top: 8%;
+}
+.card {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+#dropdown-toggle {
+    display: none;
+}
+.item-zoom-details{
+    display: flex;
+    justify-content: space-evenly;
+}
+@media screen and (max-width: 1283px) {
+    #image-list {
+        display: none;
+        position: absolute;
+        top: 0px;
+        left: 0;
+        width: 100%;  
+        background-color: var(--background-color);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+   section{
+    margin-top: 10%;
+   }
+    #dropdown-toggle {
+        display: block;
+    }
+
+    #dropdown-toggle.open + #image-list {
+        display: block;
+    }
+
+    .list-group-item {
+        border: none;
+    }
+    #dropdown-toggle{
+        margin-top: 8%;  
+        z-index: 1000;
+    }#image-list{
+        margin-top: 5%;
+    }
+    /* #sections{
+        margin-top: 0%;
+    } */
+}
+@media screen and (max-width: 951px) {
+    section{
+        margin-top: 14%;
+       }
+}

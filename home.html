@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dropdown Menu with Scrollable Text List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- REMIX ICON -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.scrollable-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    background-color: var(--card-bg);
+    color: var(--card-text-color);
+}
+
+.scrollable-wrapper {
+    overflow-y: scroll;
+    margin: 0 10px;
+    --background-color: #343a40;
+    color: var(--text-color);
+}
+.scrollable-wrapper::-webkit-scrollbar{
+    display: none;
+}
+.scrollable-content {
+    display: inline-flex;
+    align-items: center;
+}
+
+.scrollable-content span {
+    display: inline-block;
+    padding: 6px 5px;
+    white-space: nowrap;
+    --background-color: #343a40;
+    color: var(--text-color);
+}
+.scrollable-content span a{
+    text-decoration: none;
+    --background-color: #343a40;
+    color: var(--text-color);
+    padding: 10px 10px;
+    font-weight: 500;
+}
+.scrollable-content span a:hover{
+    background-color: var(--background-color);
+    color: white;
+}.scrollable-content span a:focus{
+    background-image: linear-gradient(to bottom right, rgb(255, 128, 43), rgb(165, 88, 10));
+    color: white;
+}
+.scroll-left, .scroll-right {
+    --background-color: #343a40;
+    color: var(--text-color);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    background: none;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: var(--background-color);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 10px 20px; */
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links li {
+    position: relative;
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+.nav-links .dropdown {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+}
+
+.nav-links .dropdown li a {
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.nav-links li:hover .dropdown {
+    display: block;
+}
+
+.search input {
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.auth-buttons button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sign-up {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: 600;
+}
+
+.log-in {
+    background-image: linear-gradient(to bottom right, rgb(255, 128, 43), rgb(165, 88, 10));
+    color: white;
+    border: 1px solid #0e0d0d;
+    font-weight: 600;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+}
+.logo{
+    display: none;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #333;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links li a {
+        padding: 15px 20px;
+    }
+
+    .hamburger {
+        display: flex;
+        
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+    .logo{
+    display: block;
+}
+    
+}
+
+</style>
+<body data-theme="light">
+    
+    <header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <img src="next-removebg-preview.png" alt="Logo" width="100">
+                <li><a href="#">Tutorials</a>
+                    <!-- <ul class="dropdown">
+                        <li><a href="#">HTML</a></li>
+                        <li><a href="#">CSS</a></li>
+                        <li><a href="#">JavaScript</a></li>
+                    </ul> -->
+                </li>
+                <li><a href="#">Exercises</a></li>
+                <!-- <li><a href="#">Certificates</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">SEO</a></li>
+                        <li><a href="#">Marketing</a></li>
+                    </ul>
+                </li> -->
+                <li><a href="#">Services</a></li>
+                <input type="text" class="form-control" id="search-bar" placeholder="Search images..." style="border-radius: 20px;">
+                <button id="dark-mode-toggle" class="ml-2"><i class="ri-toggle-line" style="color: rgb(69, 69, 69);"></i></button>
+            </ul>
+            <!-- <div class="search">
+                <input type="text" placeholder="Search...">
+            </div> -->
+            <div class="auth-buttons">
+                
+                <button class="sign-up">Sign Up</button>
+                <button class="log-in">Log In</button>
+            </div>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+    
+            <div class="scrollable-container">
+                <button class="scroll-left btn btn-primary">&lt;</button>
+                <div class="scrollable-wrapper">
+                    <div class="scrollable-content">
+                        <span><a href="#">HTML</a></span>
+                        <span><a href="#">CSS</a></span>
+                        <span><a href="#">JavaScript</a></span>
+                        <span><a href="#">SQL</a></span>
+                        <span><a href="#">Python</a></span>
+                        <span><a href="#">PHP</a></span>
+                        <span><a href="#">Java</a></span>
+                        <span><a href="#">C++</a></span>
+                        <span><a href="#">Bootstrap</a></span>
+                        <span><a href="#">React</a></span>
+                        <span><a href="#">MySQL</a></span>
+                        <span><a href="#">JQuery</a></span>
+                        <span><a href="#">Excel</a></span>
+                        <span><a href="#">XML</a></span>
+                        <span><a href="#">Django</a></span>
+                        <span><a href="#">Numpy</a></span>
+                        <span><a href="#">Java</a></span>
+                        <span><a href="#">C++</a></span>
+                        <span><a href="#">Bootstrap</a></span>
+                        <span><a href="#">React</a></span>
+                        <span><a href="#">MySQL</a></span>
+                        <span><a href="#">JQuery</a></span>
+                        <span><a href="#">Excel</a></span>
+                        <span><a href="#">XML</a></span>
+                        <span><a href="#">Django</a></span>
+                        <span><a href="#">Numpy</a></span><span>Java</span>
+                        <span><a href="#">C++</a></span>
+                        <span><a href="#">Bootstrap</a></span>
+                        <span><a href="#">React</a></span>
+                        <span><a href="#">MySQL</a></span>
+                        <span><a href="#">JQuery</a></span>
+                        <span><a href="#">Excel</a></span>
+                        <span><a href="#">XML</a></span>
+                        <span><a href="#">Django</a></span>
+                        <span><a href="#">Numpy</a></span>
+                    </div>
+                </div>
+                <button class="scroll-right btn btn-primary">&gt;</button>
+            </div>
+        </nav>
+    </header>
+    
+    <section>
+        <div class="container-fluid" >
+        <div class="row">
+            <!-- Sidebar with image names -->
+            <div class="col-md-3">
+                <!-- <div class="d-flex justify-content-between align-items-center mb-2">
+                    <input type="text" class="form-control" id="search-bar" placeholder="Search images...">
+                    <button id="dark-mode-toggle" class="ml-2"><i class="ri-toggle-line" style="color: rgb(69, 69, 69);"></i></button>
+                </div> -->
+                <button id="dropdown-toggle" class="btn btn-primary d-md-none">☰ Sections</button>
+                <div class="list-group" id="image-list">
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <!-- Add more sections as needed -->
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section1">Section 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section2">Section 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-target="section3">Section 3</a>
+                </div>
+            </div>
+            <!-- Main content with images -->
+            <div class="col-md-9" id="sections">
+                <div id="section1" class="image-section">
+                    <h3>Section 1</h3>
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" class="img-fluid card-img-top" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-imgsrc="https://i.pinimg.com/236x/2e/62/42/2e624228692bba5428b0301113f3f308.jpg" data-imgdesc="Description for Image 1">
+                                <div class="card-body">
+                                    <p class="card-text">Description for Image 1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more images as needed -->
+                    </div>
+                </div>
+                <div id="section2" class="image-section" style="display:none;">
+                    <h2>Section 2</h2>
+                    <div class="row">
+                        <!-- Add images for section 2 with descriptions -->
+                    </div>
+                </div>
+                <div id="section3" class="image-section" style="display:none;">
+                    <h2>Section 3</h2>
+                    <div class="row">
+                        <!-- Add images for section 3 with descriptions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </section>
+    <!-- Modal for zooming images -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Image Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="item-zoom-details">
+                      <img src="" id="modal-image" class="img-fluid" alt="Zoomed Image">
+                      <div>
+                        <h2>About this item</h2>
+                        <p id="modal-description"></p>
+                      </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    const scrollLeftBtn = document.querySelector('.scroll-left');
+    const scrollRightBtn = document.querySelector('.scroll-right');
+    const scrollableWrapper = document.querySelector('.scrollable-wrapper');
+
+    scrollLeftBtn.addEventListener('click', () => {
+        scrollableWrapper.scrollBy({
+            left: -100,
+            behavior: 'smooth'
+        });
+    });
+
+    scrollRightBtn.addEventListener('click', () => {
+        scrollableWrapper.scrollBy({
+            left: 100,
+            behavior: 'smooth'
+        });
+    });
+});
+
+    </script>
+</body>
+</html>
